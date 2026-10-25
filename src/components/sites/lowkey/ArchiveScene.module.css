@@ -1161,3 +1161,9 @@
 .shell[data-theme='light'] .workInfo {
   bottom:calc(clamp(112px, 12.5dvh, 190px) + env(safe-area-inset-bottom));
 }
+
+/* The fixed scene owns vertical touch gestures instead of native page panning. */
+.shell[data-entrance-mode='orbit'] { touch-action:none; }
+@media (max-width:700px) and (orientation:portrait) {
+  .shell[data-theme='light'] .moreButton { font-size:16px;gap:20px; }
+}

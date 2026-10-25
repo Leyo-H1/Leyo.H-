@@ -13,6 +13,7 @@ import type { EntranceMode, EntrancePhase, RailCollection, SceneStage } from './
 import styles from './ArchiveScene.module.css';
 import { gsap } from 'gsap';
 import { VaporType } from './effects/VaporType';
+import { createVerticalSwipe } from '@/lib/portfolio/vertical-swipe';
 
 interface Props {
   series: Collection[];
@@ -763,8 +764,49 @@ export function ArchiveScene({
       event.preventDefault(); event.stopImmediatePropagation();
       change(target + direction * (event.key.startsWith('Page') ? .35 : .1));
     };
+    const swipe = createVerticalSwipe();
+    const shell = frame.parentElement;
+    let suppressClickUntil = 0;
+    const onPointerDown = (event: PointerEvent) => {
+      if (!event.isPrimary) { swipe.cancel(); return; }
+      if (event.button !== 0 || stageRef.current !== 'archive' || !(event.target instanceof Element) || !shell?.contains(event.target)) return;
+      // Keep player controls, navigation and sliders fully native. Orbit cards
+      // still support tap-to-open; only an actual vertical drag takes ownership.
+      if (event.target.closest('button,a,input,select,textarea,video,[role="slider"]') && !event.target.closest('[data-orbit-card],[data-scroll-cue]')) return;
+      swipe.begin(event.pointerId, event.clientX, event.clientY);
+    };
+    const onPointerMove = (event: PointerEvent) => {
+      if (stageRef.current !== 'archive') { swipe.cancel(); return; }
+      const delta = swipe.move(event.pointerId, event.clientX, event.clientY);
+      if (delta === null) return;
+      event.preventDefault(); event.stopImmediatePropagation();
+      suppressClickUntil = performance.now() + 450;
+      if (shell && !shell.hasPointerCapture(event.pointerId)) shell.setPointerCapture(event.pointerId);
+      if (target <= 0 && delta < 0 || target >= 1 && delta > 0) return;
+      // A viewport-relative travel keeps short mobile swipes responsive while
+      // preserving partial progress and exact reversal on the same gesture.
+      const distance = Math.max(320, Math.min(640, innerHeight * .72));
+      change(target + delta / distance);
+    };
+    const onPointerEnd = (event: PointerEvent) => {
+      if (!swipe.end(event.pointerId)) return;
+      if (shell?.hasPointerCapture(event.pointerId)) shell.releasePointerCapture(event.pointerId);
+      event.preventDefault(); event.stopImmediatePropagation();
+      suppressClickUntil = performance.now() + 450;
+    };
+    const onSwipeClick = (event: MouseEvent) => {
+      if (event.detail && performance.now() < suppressClickUntil && event.target instanceof Element && shell?.contains(event.target)) {
+        if (event.target.closest('button,a,input,select,textarea,[role="slider"]') && !event.target.closest('[data-orbit-card],[data-scroll-cue]')) return;
+        event.preventDefault(); event.stopImmediatePropagation();
+      }
+    };
     const enter = () => change(1);
     const back = () => change(0);
+    window.addEventListener('pointerdown', onPointerDown, true);
+    window.addEventListener('pointermove', onPointerMove, {passive: false, capture: true});
+    window.addEventListener('pointerup', onPointerEnd, true);
+    window.addEventListener('pointercancel', onPointerEnd, true);
+    window.addEventListener('click', onSwipeClick, true);
     window.addEventListener('wheel', onWheel, {passive: false, capture: true});
     window.addEventListener('keydown', onKey, true);
     window.addEventListener('portfolio-scroll-enter', enter);
@@ -774,6 +816,12 @@ export function ArchiveScene({
       gsap.set(cards, {clearProps: 'opacity'});
       gsap.set(root, {clearProps: 'opacity,transform'});
       gsap.set(frame, {clearProps: 'opacity'});
+      swipe.cancel();
+      window.removeEventListener('pointerdown', onPointerDown, true);
+      window.removeEventListener('pointermove', onPointerMove, true);
+      window.removeEventListener('pointerup', onPointerEnd, true);
+      window.removeEventListener('pointercancel', onPointerEnd, true);
+      window.removeEventListener('click', onSwipeClick, true);
       window.removeEventListener('wheel', onWheel, true);
       window.removeEventListener('keydown', onKey, true);
       window.removeEventListener('portfolio-scroll-enter', enter);
@@ -909,7 +957,7 @@ export function ArchiveScene({
         <b className={styles.returnShort}>返回</b>
       </button>
 
-      {orbitPhase === 'orbit' && <button className={styles.scrollCue} onClick={() => window.dispatchEvent(new CustomEvent('portfolio-scroll-enter'))}>向下滑动 <span>↓</span></button>}
+      {orbitPhase === 'orbit' && <button className={styles.scrollCue} data-scroll-cue onClick={() => window.dispatchEvent(new CustomEvent('portfolio-scroll-enter'))}>向下滑动 <span>↓</span></button>}
       {orbitPhase === 'complete' && <button className={styles.moreButton} onClick={onMore}>更多 <span>↗</span></button>}
       <nav className={styles.accessibleWorks} aria-label="精选画框作品" inert={orbitPhase !== 'complete'}>{published.map((item,index)=><button key={item.id} onClick={()=>controllerRef.current?.openCase(index)}>打开画框：{item.titleZh}</button>)}</nav>
       <section ref={workInfoRef} className={styles.workInfo} data-open={open ? 'true' : 'false'} aria-hidden={!open} inert={!open}>
