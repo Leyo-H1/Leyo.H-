@@ -1,0 +1,781 @@
+[
+  {
+    "slug": "oolong",
+    "title": "乌龙新品预热",
+    "titleLines": [
+      "乌龙新品预热"
+    ],
+    "category": "茶饮烘焙",
+    "order": 1,
+    "description": "以看得见新鲜原料与光影氛围结合极简的画面表达新品即将上线",
+    "role": "策划、拍摄、剪辑",
+    "year": 2026,
+    "poster": "/portfolio/media/oolong.jpg",
+    "video": "",
+    "fullVideo": "/portfolio/media/oolong.mp4",
+    "width": 1080,
+    "height": 1920,
+    "duration": 6.52,
+    "coverTime": 2.0
+  },
+  {
+    "slug": "film-02",
+    "title": "乌龙新品手作",
+    "titleLines": [
+      "乌龙新品手作"
+    ],
+    "category": "茶饮烘焙",
+    "order": 2,
+    "description": "一轻一焙 不同的茶底搭配不同的食材以故事感手作方式呈现",
+    "role": "策划、拍摄、剪辑",
+    "year": 2026,
+    "poster": "/portfolio/media/film-02.jpg",
+    "video": "",
+    "fullVideo": "/portfolio/media/film-02.mp4",
+    "width": 1080,
+    "height": 1920,
+    "duration": 17.6,
+    "coverTime": 16.0
+  },
+  {
+    "slug": "film-03",
+    "title": "香菜泡芙",
+    "titleLines": [
+      "香菜泡芙"
+    ],
+    "category": "茶饮烘焙",
+    "order": 3,
+    "description": "工艺与匠心配合极简画面渲染食物的精致感",
+    "role": "策划、拍摄、剪辑",
+    "year": 2026,
+    "poster": "/portfolio/media/film-03.jpg",
+    "video": "",
+    "fullVideo": "/portfolio/media/film-03.mp4",
+    "width": 1080,
+    "height": 1920,
+    "duration": 10.65,
+    "coverTime": 9.0
+  },
+  {
+    "slug": "film-04",
+    "title": "吃茶氛围",
+    "titleLines": [
+      "吃茶氛围"
+    ],
+    "category": "茶饮烘焙",
+    "order": 4,
+    "description": "以复古基调为底色结合品牌产品塑造生活中的小精致",
+    "role": "策划、拍摄、剪辑",
+    "year": 2026,
+    "poster": "/portfolio/media/film-04.jpg",
+    "video": "",
+    "fullVideo": "/portfolio/media/film-04.mp4",
+    "width": 1080,
+    "height": 1920,
+    "duration": 18.8,
+    "coverTime": 6.0
+  },
+  {
+    "slug": "film-05",
+    "title": "冷泡茶仪式感",
+    "titleLines": [
+      "冷泡茶仪式感"
+    ],
+    "category": "茶饮烘焙",
+    "order": 5,
+    "description": "你以为是瓶香槟么 不 这是茶",
+    "role": "策划、拍摄、剪辑",
+    "year": 2026,
+    "poster": "/portfolio/media/film-05.jpg",
+    "video": "",
+    "fullVideo": "/portfolio/media/film-05.mp4",
+    "width": 1080,
+    "height": 1920,
+    "duration": 18.66,
+    "coverTime": 17.0
+  },
+  {
+    "slug": "film-06",
+    "title": "冷泡茶季节手作",
+    "titleLines": [
+      "冷泡茶季节手作"
+    ],
+    "category": "茶饮烘焙",
+    "order": 6,
+    "description": "场景 风味 季节 感官 ",
+    "role": "策划、拍摄、剪辑",
+    "year": 2026,
+    "poster": "/portfolio/media/film-06.jpg",
+    "video": "",
+    "fullVideo": "/portfolio/media/film-06.mp4",
+    "width": 1080,
+    "height": 1920,
+    "duration": 13.9,
+    "coverTime": 0.0
+  },
+  {
+    "slug": "film-07",
+    "title": "凤梨酥茶拿铁上线预热",
+    "titleLines": [
+      "凤梨酥茶拿铁上线预热"
+    ],
+    "category": "茶饮烘焙",
+    "order": 7,
+    "description": "AIGC复古打字机预热视觉",
+    "role": "策划、剪辑",
+    "year": 2026,
+    "poster": "/portfolio/media/film-07.jpg",
+    "video": "",
+    "fullVideo": "/portfolio/media/film-07.mp4",
+    "width": 1436,
+    "height": 1920,
+    "duration": 10.27,
+    "coverTime": 3.0
+  },
+  {
+    "slug": "film-08",
+    "title": "麻糬号角",
+    "titleLines": [
+      "麻糬号角"
+    ],
+    "category": "茶饮烘焙",
+    "order": 8,
+    "description": "暗红色背景下的亮相 看到的是满满的内馅 奶油 酥脆",
+    "role": "策划、拍摄、剪辑",
+    "year": 2026,
+    "poster": "/portfolio/media/film-08.jpg",
+    "video": "",
+    "fullVideo": "/portfolio/media/film-08.mp4",
+    "width": 1080,
+    "height": 1920,
+    "duration": 20.87,
+    "coverTime": 16.0
+  },
+  {
+    "slug": "film-09",
+    "title": "办公室场景-零售品",
+    "titleLines": [
+      "办公室场景-零售品"
+    ],
+    "category": "茶饮烘焙",
+    "order": 9,
+    "description": "场景使用的便利性呈现",
+    "role": "策划、拍摄、剪辑",
+    "year": 2026,
+    "poster": "/portfolio/media/film-09.jpg",
+    "video": "",
+    "fullVideo": "/portfolio/media/film-09.mp4",
+    "width": 1080,
+    "height": 1920,
+    "duration": 20.07,
+    "coverTime": 10.0
+  },
+  {
+    "slug": "film-10",
+    "title": "茶点搭配定格动画",
+    "titleLines": [
+      "茶点搭配定格动画"
+    ],
+    "category": "茶饮烘焙",
+    "order": 10,
+    "description": "定格动画的趣味性引导至茶与茶点的搭配",
+    "role": "策划、拍摄、剪辑",
+    "year": 2026,
+    "poster": "/portfolio/media/film-10.jpg",
+    "video": "",
+    "fullVideo": "/portfolio/media/film-10.mp4",
+    "width": 1080,
+    "height": 1920,
+    "duration": 30.88,
+    "coverTime": 6.0
+  },
+  {
+    "slug": "kunqu",
+    "title": "昆曲项目倒计时3天",
+    "titleLines": [
+      "昆曲项目倒计时3天"
+    ],
+    "category": "社媒物料",
+    "order": 1,
+    "description": "与苏州昆剧院的联名活动上线倒计时",
+    "role": "剪辑",
+    "year": 2025,
+    "poster": "/portfolio/media/kunqu.jpg",
+    "video": "",
+    "fullVideo": "/portfolio/media/kunqu.mp4",
+    "width": 1080,
+    "height": 1920,
+    "duration": 4.98,
+    "coverTime": 4.83
+  },
+  {
+    "slug": "film-12",
+    "title": "昆曲项目倒计时2天",
+    "titleLines": [
+      "昆曲项目倒计时2天"
+    ],
+    "category": "社媒物料",
+    "order": 2,
+    "description": "与苏州昆剧院的联名活动上线倒计时",
+    "role": "剪辑",
+    "year": 2025,
+    "poster": "/portfolio/media/film-12.jpg",
+    "video": "",
+    "fullVideo": "/portfolio/media/film-12.mp4",
+    "width": 1080,
+    "height": 1920,
+    "duration": 6.98,
+    "coverTime": 6.83
+  },
+  {
+    "slug": "film-13",
+    "title": "昆曲项目倒计时1天",
+    "titleLines": [
+      "昆曲项目倒计时1天"
+    ],
+    "category": "社媒物料",
+    "order": 3,
+    "description": "与苏州昆剧院的联名活动上线倒计时",
+    "role": "剪辑",
+    "year": 2025,
+    "poster": "/portfolio/media/film-13.jpg",
+    "video": "",
+    "fullVideo": "/portfolio/media/film-13.mp4",
+    "width": 1080,
+    "height": 1920,
+    "duration": 5.91,
+    "coverTime": 5.76
+  },
+  {
+    "slug": "film-14",
+    "title": "温泉周边视觉",
+    "titleLines": [
+      "温泉周边视觉"
+    ],
+    "category": "社媒物料",
+    "order": 4,
+    "description": "AIGC视觉动画",
+    "role": "剪辑",
+    "year": 2025,
+    "poster": "/portfolio/media/film-14.jpg",
+    "video": "",
+    "fullVideo": "/portfolio/media/film-14.mp4",
+    "width": 1080,
+    "height": 1440,
+    "duration": 5.03,
+    "coverTime": 4.88
+  },
+  {
+    "slug": "film-15",
+    "title": "糯香红茶",
+    "titleLines": [
+      "糯香红茶"
+    ],
+    "category": "社媒物料",
+    "order": 5,
+    "description": "微距下的茶汤",
+    "role": "拍摄、剪辑",
+    "year": 2026,
+    "poster": "/portfolio/media/film-15.jpg",
+    "video": "",
+    "fullVideo": "/portfolio/media/film-15.mp4",
+    "width": 1080,
+    "height": 1440,
+    "duration": 2.37,
+    "coverTime": 0.8532
+  },
+  {
+    "slug": "film-16",
+    "title": "牛乳与茶汤",
+    "titleLines": [
+      "牛乳与茶汤"
+    ],
+    "category": "社媒物料",
+    "order": 6,
+    "description": "微距下的牛乳碰撞",
+    "role": "拍摄、剪辑",
+    "year": 2026,
+    "poster": "/portfolio/media/film-16.jpg",
+    "video": "",
+    "fullVideo": "/portfolio/media/film-16.mp4",
+    "width": 1080,
+    "height": 1440,
+    "duration": 2.97,
+    "coverTime": 1.0692
+  },
+  {
+    "slug": "film-17",
+    "title": "鹤顶红茶",
+    "titleLines": [
+      "鹤顶红茶"
+    ],
+    "category": "社媒物料",
+    "order": 7,
+    "description": "微距下的茶汤",
+    "role": "拍摄、剪辑",
+    "year": 2026,
+    "poster": "/portfolio/media/film-17.jpg",
+    "video": "",
+    "fullVideo": "/portfolio/media/film-17.mp4",
+    "width": 1080,
+    "height": 1440,
+    "duration": 2.0,
+    "coverTime": 0.72
+  },
+  {
+    "slug": "film-18",
+    "title": "《大厨说》-焖肉",
+    "titleLines": [
+      "《大厨说》-焖肉"
+    ],
+    "category": "餐饮美食",
+    "order": 1,
+    "description": "",
+    "role": "策划、拍摄、剪辑",
+    "year": 2025,
+    "poster": "/portfolio/media/film-18.jpg",
+    "video": "",
+    "fullVideo": "/portfolio/media/film-18.mp4",
+    "width": 1920,
+    "height": 1080,
+    "duration": 67.85,
+    "coverTime": 24.0
+  },
+  {
+    "slug": "chef",
+    "title": "《大厨说》-响油鳝糊",
+    "titleLines": [
+      "《大厨说》-响油鳝糊"
+    ],
+    "category": "餐饮美食",
+    "order": 2,
+    "description": "",
+    "role": "策划、拍摄、剪辑",
+    "year": 2025,
+    "poster": "/portfolio/media/chef.jpg",
+    "video": "",
+    "fullVideo": "/portfolio/media/chef.mp4",
+    "width": 1920,
+    "height": 1080,
+    "duration": 63.53,
+    "coverTime": 11.0
+  },
+  {
+    "slug": "film-20",
+    "title": "《大厨说》腌笃鲜酱汁肉",
+    "titleLines": [
+      "《大厨说》腌笃鲜酱汁肉"
+    ],
+    "category": "餐饮美食",
+    "order": 3,
+    "description": "",
+    "role": "策划、拍摄、剪辑",
+    "year": 2024,
+    "poster": "/portfolio/media/film-20.jpg",
+    "video": "",
+    "fullVideo": "/portfolio/media/film-20.mp4",
+    "width": 1920,
+    "height": 1080,
+    "duration": 91.03,
+    "coverTime": 26.0
+  },
+  {
+    "slug": "film-21",
+    "title": "虎丘茶",
+    "titleLines": [
+      "虎丘茶"
+    ],
+    "category": "餐饮美食",
+    "order": 4,
+    "description": "",
+    "role": "策划、拍摄、剪辑",
+    "year": 2021,
+    "poster": "/portfolio/media/film-21.jpg",
+    "video": "",
+    "fullVideo": "/portfolio/media/film-21.mp4",
+    "width": 1920,
+    "height": 1080,
+    "duration": 81.4,
+    "coverTime": 37.0
+  },
+  {
+    "slug": "film-22",
+    "title": "绿豆汤",
+    "titleLines": [
+      "绿豆汤"
+    ],
+    "category": "餐饮美食",
+    "order": 5,
+    "description": "",
+    "role": "策划、拍摄、剪辑",
+    "year": 2023,
+    "poster": "/portfolio/media/film-22.jpg",
+    "video": "",
+    "fullVideo": "/portfolio/media/film-22.mp4",
+    "width": 1920,
+    "height": 1080,
+    "duration": 28.4,
+    "coverTime": 5.0
+  },
+  {
+    "slug": "film-23",
+    "title": "粽子礼盒",
+    "titleLines": [
+      "粽子礼盒"
+    ],
+    "category": "餐饮美食",
+    "order": 6,
+    "description": "",
+    "role": "策划、拍摄、剪辑",
+    "year": 2024,
+    "poster": "/portfolio/media/film-23.jpg",
+    "video": "",
+    "fullVideo": "/portfolio/media/film-23.mp4",
+    "width": 1920,
+    "height": 1080,
+    "duration": 71.82,
+    "coverTime": 14.0
+  },
+  {
+    "slug": "film-24",
+    "title": "肌肉科技腰旗橄榄球",
+    "titleLines": [
+      "肌肉科技腰旗橄榄球"
+    ],
+    "category": "市场活动",
+    "order": 1,
+    "description": "",
+    "role": "拍摄、剪辑",
+    "year": 2022,
+    "poster": "/portfolio/media/film-24.jpg",
+    "video": "",
+    "fullVideo": "/portfolio/media/film-24.mp4",
+    "width": 1920,
+    "height": 1080,
+    "duration": 43.03,
+    "coverTime": 40.0
+  },
+  {
+    "slug": "film-25",
+    "title": "nike开业活动",
+    "titleLines": [
+      "nike开业活动"
+    ],
+    "category": "市场活动",
+    "order": 2,
+    "description": "",
+    "role": "拍摄、剪辑",
+    "year": 2022,
+    "poster": "/portfolio/media/film-25.jpg",
+    "video": "",
+    "fullVideo": "/portfolio/media/film-25.mp4",
+    "width": 1920,
+    "height": 1080,
+    "duration": 29.93,
+    "coverTime": 10.774799999999999
+  },
+  {
+    "slug": "running",
+    "title": "广汽传祺路跑",
+    "titleLines": [
+      "广汽传祺路跑"
+    ],
+    "category": "市场活动",
+    "order": 3,
+    "description": "",
+    "role": "拍摄、剪辑",
+    "year": 2021,
+    "poster": "/portfolio/media/running.jpg",
+    "video": "",
+    "fullVideo": "/portfolio/media/running.mp4",
+    "width": 1920,
+    "height": 1080,
+    "duration": 24.58,
+    "coverTime": 5.0
+  },
+  {
+    "slug": "film-27",
+    "title": "南京五菱预热短片",
+    "titleLines": [
+      "南京五菱预热短片"
+    ],
+    "category": "市场活动",
+    "order": 4,
+    "description": "",
+    "role": "拍摄、剪辑",
+    "year": 2024,
+    "poster": "/portfolio/media/film-27.jpg",
+    "video": "",
+    "fullVideo": "/portfolio/media/film-27.mp4",
+    "width": 1920,
+    "height": 1080,
+    "duration": 65.58,
+    "coverTime": 1.03
+  },
+  {
+    "slug": "film-28",
+    "title": "南京五菱媒体证言短片",
+    "titleLines": [
+      "南京五菱媒体证言短片"
+    ],
+    "category": "市场活动",
+    "order": 5,
+    "description": "",
+    "role": "拍摄、剪辑",
+    "year": 2024,
+    "poster": "/portfolio/media/film-28.jpg",
+    "video": "",
+    "fullVideo": "/portfolio/media/film-28.mp4",
+    "width": 1920,
+    "height": 1080,
+    "duration": 110.18,
+    "coverTime": 17.0
+  },
+  {
+    "slug": "film-29",
+    "title": "杭州五菱活动长片",
+    "titleLines": [
+      "杭州五菱活动长片"
+    ],
+    "category": "市场活动",
+    "order": 6,
+    "description": "",
+    "role": "剪辑",
+    "year": 2023,
+    "poster": "/portfolio/media/film-29.jpg",
+    "video": "",
+    "fullVideo": "/portfolio/media/film-29.mp4",
+    "width": 1920,
+    "height": 1080,
+    "duration": 144.0,
+    "coverTime": 1.0
+  },
+  {
+    "slug": "film-30",
+    "title": "咆哮打击乐长片",
+    "titleLines": [
+      "咆哮打击乐长片"
+    ],
+    "category": "人物记录",
+    "order": 1,
+    "description": "",
+    "role": "策划、剪辑",
+    "year": 2024,
+    "poster": "/portfolio/media/film-30.jpg",
+    "video": "",
+    "fullVideo": "/portfolio/media/film-30.mp4",
+    "width": 1920,
+    "height": 1080,
+    "duration": 110.33,
+    "coverTime": 4.0
+  },
+  {
+    "slug": "artist",
+    "title": "芦花艺术节选手训练集锦",
+    "titleLines": [
+      "芦花艺术节选手训练集锦"
+    ],
+    "category": "人物记录",
+    "order": 2,
+    "description": "",
+    "role": "策划、拍摄",
+    "year": 2024,
+    "poster": "/portfolio/media/artist.jpg",
+    "video": "",
+    "fullVideo": "/portfolio/media/artist.mp4",
+    "width": 1920,
+    "height": 1080,
+    "duration": 60.6,
+    "coverTime": 40.0
+  },
+  {
+    "slug": "film-32",
+    "title": "苏州名片跨年演讲回顾短片",
+    "titleLines": [
+      "苏州名片跨年演讲回顾短片"
+    ],
+    "category": "人物记录",
+    "order": 3,
+    "description": "",
+    "role": "策划、拍摄、剪辑",
+    "year": 2025,
+    "poster": "/portfolio/media/film-32.jpg",
+    "video": "",
+    "fullVideo": "/portfolio/media/film-32.mp4",
+    "width": 1920,
+    "height": 1080,
+    "duration": 125.3,
+    "coverTime": 1.48
+  },
+  {
+    "slug": "film-33",
+    "title": "smart女神节短片",
+    "titleLines": [
+      "smart女神节短片"
+    ],
+    "category": "人物记录",
+    "order": 4,
+    "description": "",
+    "role": "策划、拍摄、剪辑",
+    "year": 2023,
+    "poster": "/portfolio/media/film-33.jpg",
+    "video": "",
+    "fullVideo": "/portfolio/media/film-33.mp4",
+    "width": 1920,
+    "height": 1080,
+    "duration": 121.7,
+    "coverTime": 4.0
+  },
+  {
+    "slug": "film-34",
+    "title": "Freestyle",
+    "titleLines": [
+      "Freestyle"
+    ],
+    "category": "随机意识",
+    "order": 1,
+    "description": "",
+    "role": "",
+    "year": 2025,
+    "poster": "/portfolio/media/film-34.jpg",
+    "video": "",
+    "fullVideo": "/portfolio/media/film-34.mp4",
+    "width": 1920,
+    "height": 1080,
+    "duration": 14.87,
+    "coverTime": 8.0
+  },
+  {
+    "slug": "at-home",
+    "title": "舒服窝在家里",
+    "titleLines": [
+      "舒服窝在家里"
+    ],
+    "category": "随机意识",
+    "order": 2,
+    "description": "",
+    "role": "",
+    "year": 2025,
+    "poster": "/portfolio/media/at-home.jpg",
+    "video": "",
+    "fullVideo": "/portfolio/media/at-home.mp4",
+    "width": 1920,
+    "height": 1080,
+    "duration": 30.36,
+    "coverTime": 12.0
+  },
+  {
+    "slug": "film-36",
+    "title": "“间接性”进食",
+    "titleLines": [
+      "“间接性”进食"
+    ],
+    "category": "随机意识",
+    "order": 3,
+    "description": "",
+    "role": "",
+    "year": 2025,
+    "poster": "/portfolio/media/film-36.jpg",
+    "video": "",
+    "fullVideo": "/portfolio/media/film-36.mp4",
+    "width": 1920,
+    "height": 1080,
+    "duration": 18.57,
+    "coverTime": 0.0
+  },
+  {
+    "slug": "film-37",
+    "title": "“经常性”发呆",
+    "titleLines": [
+      "“经常性”发呆"
+    ],
+    "category": "随机意识",
+    "order": 4,
+    "description": "",
+    "role": "",
+    "year": 2025,
+    "poster": "/portfolio/media/film-37.jpg",
+    "video": "",
+    "fullVideo": "/portfolio/media/film-37.mp4",
+    "width": 1920,
+    "height": 1080,
+    "duration": 25.77,
+    "coverTime": 7.0
+  },
+  {
+    "slug": "film-38",
+    "title": "画面反应状态",
+    "titleLines": [
+      "画面反应状态"
+    ],
+    "category": "随机意识",
+    "order": 5,
+    "description": "",
+    "role": "",
+    "year": 2025,
+    "poster": "/portfolio/media/film-38.jpg",
+    "video": "",
+    "fullVideo": "/portfolio/media/film-38.mp4",
+    "width": 1920,
+    "height": 1080,
+    "duration": 14.4,
+    "coverTime": 5.0
+  },
+  {
+    "slug": "film-39",
+    "title": "一时兴起的表现",
+    "titleLines": [
+      "一时兴起的表现"
+    ],
+    "category": "随机意识",
+    "order": 6,
+    "description": "",
+    "role": "",
+    "year": 2025,
+    "poster": "/portfolio/media/film-39.jpg",
+    "video": "",
+    "fullVideo": "/portfolio/media/film-39.mp4",
+    "width": 1920,
+    "height": 1080,
+    "duration": 18.58,
+    "coverTime": 16.0
+  },
+  {
+    "slug": "film-40",
+    "title": "想“洗心革面”的日子",
+    "titleLines": [
+      "想“洗心革面”的日子"
+    ],
+    "category": "随机意识",
+    "order": 7,
+    "description": "",
+    "role": "",
+    "year": 2025,
+    "poster": "/portfolio/media/film-40.jpg",
+    "video": "",
+    "fullVideo": "/portfolio/media/film-40.mp4",
+    "width": 1920,
+    "height": 1080,
+    "duration": 34.27,
+    "coverTime": 0.0
+  },
+  {
+    "slug": "film-41",
+    "title": "20年的情绪宣泄",
+    "titleLines": [
+      "20年的情绪宣泄"
+    ],
+    "category": "随机意识",
+    "order": 8,
+    "description": "",
+    "role": "",
+    "year": 2020,
+    "poster": "/portfolio/media/film-41.jpg",
+    "video": "",
+    "fullVideo": "/portfolio/media/film-41.mp4",
+    "width": 1920,
+    "height": 1080,
+    "duration": 76.86,
+    "coverTime": 1.0
+  }
+]

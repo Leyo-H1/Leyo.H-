@@ -1,0 +1,9 @@
+{
+  "food-menu.jpg": {
+    "source": "/portfolio/media/chef.mp4",
+    "title": "《大厨说》-响油鳝糊",
+    "timeSeconds": 27,
+    "crop": { "x": 0, "y": 90, "width": 1280, "height": 540 },
+    "purpose": "餐饮美食分类流动菜单封面，锅中食材镜头，去除字幕与上下黑边"
+  }
+}

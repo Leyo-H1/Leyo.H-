@@ -1,0 +1,53 @@
+/* Full viewport native top layer; only the inner panel has a glass surface. */
+.whiteStage {
+  position:fixed;inset:0;margin:0;padding:0;width:100vw;height:100dvh;max-width:none;max-height:none;
+  border:0;background:transparent;overflow:hidden;color:#202723;
+}
+.whiteStage::backdrop {
+  background:rgba(226,232,227,.32);backdrop-filter:blur(24px) saturate(.6);
+  -webkit-backdrop-filter:blur(24px) saturate(.6);animation:mistIn 1.08s ease both;
+}
+.whiteStage[data-phase='closing']::backdrop { animation:mistOut .76s ease both; }
+:global(.cinema[data-theme='light']) .whiteDialog.whiteDialog {
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);margin:0;padding:0;
+  width:min(1120px,calc(64dvh * var(--player-aspect, 1.777778) + 42px),calc(100vw - 100px));
+  max-height:calc(100dvh - 76px);overflow:auto;
+  background:rgba(249,251,249,.46);color:#202723;border:1px solid rgba(255,255,255,.72);border-radius:26px;
+  box-shadow:inset 0 0 0 1px rgba(75,91,83,.075),0 18px 54px rgba(27,43,33,.16);
+  backdrop-filter:blur(28px) saturate(.65);-webkit-backdrop-filter:blur(28px) saturate(.65);isolation:isolate;
+}
+.whiteDialog :global(.player-heading) { padding:18px 24px; }
+.whiteDialog :global(.player-heading h2) { font-size:20px;letter-spacing:.4px; }
+.whiteDialog :global(.player-heading p) { opacity:.55; }
+:global(.cinema[data-theme='light']) .whiteDialog :global(.portfolio-player) {
+  width:calc(100% - 40px);margin:0 20px;height:auto;aspect-ratio:var(--player-aspect, 1.777778);
+  max-height:64dvh;border-radius:14px;background:rgba(20,25,22,.06);border:1px solid rgba(31,47,37,.09);
+}
+.whiteDialog :global(.player-details) { padding:18px 24px;min-height:76px; }
+:global(.cinema[data-theme='light']) .whiteDialog :global(.dialog-close),
+:global(.cinema[data-theme='light']) .whiteDialog :global(.player-pagination button) {
+  background:rgba(255,255,255,.28);border-color:rgba(65,82,71,.17);border-radius:18px;box-shadow:none;
+}
+.whiteDialog :global(.player-pagination button) { padding:7px 12px; }
+:global(.cinema[data-theme='light']) .whiteDialog.whiteDialog[data-portrait='true'] {
+  width:min(600px,calc(64dvh * var(--player-aspect, .5625) + 42px),calc(100vw - 80px));
+}
+.transitionCover { position:absolute;z-index:5;pointer-events:none;object-fit:cover;transform-origin:0 0;will-change:transform,opacity; }
+:global(.cinema[data-theme='light']) .whiteDialog :global(.dialog-close) {
+  width:28px;height:28px;min-width:28px;padding:0;font-size:18px;line-height:1;border-radius:50%;outline:none;
+}
+@keyframes mistIn {
+  from { background:rgba(226,232,227,0);backdrop-filter:blur(0px) saturate(1);-webkit-backdrop-filter:blur(0px) saturate(1); }
+  to { background:rgba(226,232,227,.32);backdrop-filter:blur(24px) saturate(.6);-webkit-backdrop-filter:blur(24px) saturate(.6); }
+}
+@keyframes mistOut {
+  from { background:rgba(226,232,227,.32);backdrop-filter:blur(24px) saturate(.6);-webkit-backdrop-filter:blur(24px) saturate(.6); }
+  to { background:rgba(226,232,227,0);backdrop-filter:blur(0px) saturate(1);-webkit-backdrop-filter:blur(0px) saturate(1); }
+}
+@media(max-width:600px) {
+  :global(.cinema[data-theme='light']) .whiteDialog.whiteDialog { width:calc(100vw - 28px);max-height:calc(100dvh - 40px); }
+  :global(.cinema[data-theme='light']) .whiteDialog.whiteDialog[data-portrait='true'] { width:min(calc(64dvh * var(--player-aspect) + 42px),calc(100vw - 28px)); }
+  .whiteDialog :global(.player-heading),.whiteDialog :global(.player-details) { padding:14px 18px; }
+  .whiteDialog :global(.player-details) { flex-wrap:wrap;gap:12px; }
+}
+@media(prefers-reduced-motion:reduce) { .whiteStage::backdrop { animation:none; }.transitionCover { display:none; } }

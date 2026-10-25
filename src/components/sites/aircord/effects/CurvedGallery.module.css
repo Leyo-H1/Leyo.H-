@@ -1,0 +1,26 @@
+.gallery { position:absolute;inset:0;isolation:isolate;touch-action:none;outline:none;cursor:grab;user-select:none; }
+.gallery[data-dragging='gallery'],.gallery[data-dragging='slider'] { cursor:grabbing; }
+.canvas,.hits { position:absolute;inset:0; }
+.canvas { opacity:0;transition:opacity .65s ease;pointer-events:none; }
+.gallery[data-ready='true'] .canvas { opacity:1; }
+.canvas canvas { display:block;width:100%;height:100%; }
+.hits { pointer-events:none; }
+.hit { position:absolute;left:0;top:0;padding:0;border:0;background:transparent;pointer-events:auto;cursor:pointer;visibility:hidden;will-change:transform;touch-action:none; }
+.gallery[data-dragging='gallery'] .hit { cursor:grabbing; }
+.hit:focus-visible { background:rgba(234,242,238,.15);outline:1px solid #74887b;outline-offset:-4px; }
+.name { position:absolute;left:50%;top:75%;max-width:260px;pointer-events:none;line-height:1.6;text-align:center;font-size:12px;letter-spacing:.04em;color:#657068;opacity:0;transform:translate(-50%,4px);transition:opacity .22s,transform .3s; }
+.name[data-visible='true'] { opacity:1;transform:translate(-50%,0); }
+.sliderWrap { position:absolute;left:50%;transform:translateX(-50%);bottom:-49px;width:clamp(120px,14vw,200px);height:32px;z-index:300; }
+.slider { position:relative;width:100%;height:32px;cursor:ew-resize;touch-action:none;outline:none; }
+.track { position:absolute;left:0;right:0;top:15px;height:1px;background:#dce1dd;pointer-events:none; }
+.thumb { position:absolute;left:0;top:12px;width:36px;height:7px;border:1px solid #b2beb6;border-radius:6px;background:rgba(230,237,232,.95);pointer-events:none;will-change:transform; }
+.slider:focus-visible { outline:1px solid #b1bdb4;outline-offset:4px;border-radius:8px; }
+.fallback { position:absolute;inset:0 8vw;overflow:auto;display:flex;align-items:center;gap:28px; }
+.fallback button { flex:0 0 min(340px,70vw);text-align:center; }
+.fallback img { width:100%;max-height:50dvh;object-fit:contain;border-radius:10px; }
+.fallback span { display:block;padding:12px 0;font-size:12px; }
+@media(max-width:700px) {
+  .name { max-width:180px;font-size:11px; }
+  .sliderWrap { left:50%;bottom:4px;width:clamp(100px,28vw,140px); }
+}
+@media(prefers-reduced-motion:reduce) { .canvas,.name { transition:none; } }

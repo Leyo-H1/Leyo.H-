@@ -1,0 +1,211 @@
+[
+  {
+    "slug": "lexus-milan-design-week",
+    "title": "LEXUS Milan Design Week",
+    "titleLines": [
+      "LEXUS",
+      "Milan Design Week"
+    ],
+    "client": "LEXUS",
+    "categories": [
+      "EXHIBITION",
+      "VISUAL SYSTEM",
+      "PROJECTION",
+      "BRANDING"
+    ],
+    "poster": "/sites/aircord/media/lexus-milan-design-week.jpg",
+    "video": "/sites/aircord/media/lexus-milan-design-week.mp4",
+    "href": "https://aircord.co.jp/en/projects/lexus-milan-design-week/"
+  },
+  {
+    "slug": "uncovered-skies",
+    "title": "Uncovered Skies",
+    "titleLines": [
+      "Uncovered Skies"
+    ],
+    "client": "NENDO",
+    "categories": [
+      "EXHIBITION",
+      "PROJECTION",
+      "DEVICE",
+      "VISUAL SYSTEM"
+    ],
+    "poster": "/sites/aircord/media/uncovered-skies.jpg",
+    "video": "/sites/aircord/media/uncovered-skies.mp4",
+    "href": "https://aircord.co.jp/en/projects/uncovered-skies/"
+  },
+  {
+    "slug": "jal-steam-school",
+    "title": "JAL STEAM SCHOOL",
+    "titleLines": [
+      "JAL STEAM SCHOOL"
+    ],
+    "client": "JAPAN AIRLINES",
+    "categories": [
+      "EDUCATION",
+      "DEVICE",
+      "VISUAL SYSTEM",
+      "BRANDING"
+    ],
+    "poster": "/sites/aircord/media/jal-steam-school.jpg",
+    "video": "/sites/aircord/media/jal-steam-school.mp4",
+    "href": "https://aircord.co.jp/en/projects/jal-steam-school/"
+  },
+  {
+    "slug": "goldrain-at-paris-descartes",
+    "title": "“Goldrain” at Paris Descartes",
+    "titleLines": [
+      "\"Goldrain\" at Paris",
+      "Descartes"
+    ],
+    "client": "THE EUGENE STUDIO",
+    "categories": [
+      "FASHION SHOW",
+      "DEVICE",
+      "LIGHTING SYSTEM"
+    ],
+    "poster": "/sites/aircord/media/goldrain-at-paris-descartes.jpg",
+    "video": "/sites/aircord/media/goldrain-at-paris-descartes.mp4",
+    "href": "https://aircord.co.jp/en/projects/goldrain-at-paris-descartes/"
+  },
+  {
+    "slug": "coca-cola-shibuya-coke-vision",
+    "title": "Coca-Cola Shibuya Coke Vision",
+    "titleLines": [
+      "Coca-Cola",
+      "Shibuya Coke Vision"
+    ],
+    "client": "COCA-COLA",
+    "categories": [
+      "DIGITAL SIGNAGE",
+      "VI",
+      "VISUAL SYSTEM",
+      "BRANDING"
+    ],
+    "poster": "/sites/aircord/media/coca-cola-shibuya-coke-vision.jpg",
+    "video": "/sites/aircord/media/coca-cola-shibuya-coke-vision.mp4",
+    "href": "https://aircord.co.jp/en/projects/coca-cola-shibuya-coke-vision/"
+  },
+  {
+    "slug": "tohaku-becoming-japanese-art",
+    "title": "TOHAKU BECOMING JAPANESE ART",
+    "titleLines": [
+      "TOHAKU BECOMING",
+      "JAPANESE ART"
+    ],
+    "client": "TOKYO NATIONAL MUSEUM",
+    "categories": [
+      "EXHIBITION",
+      "PROJECTION",
+      "VI/UX",
+      "VISUAL SYSTEM"
+    ],
+    "poster": "/sites/aircord/media/tohaku-becoming-japanese-art.jpg",
+    "video": "/sites/aircord/media/tohaku-becoming-japanese-art.mp4",
+    "href": "https://aircord.co.jp/en/projects/tohaku-becoming-japanese-art/"
+  },
+  {
+    "slug": "docomo-future-station",
+    "title": "docomo FUTURE STATION",
+    "titleLines": [
+      "docomo",
+      "FUTURE STATION"
+    ],
+    "client": "NTT DOCOMO",
+    "categories": [
+      "VISUAL SYSTEM",
+      "PERMANENT EXHIBITION"
+    ],
+    "poster": "/sites/aircord/media/docomo-future-station.jpg",
+    "video": "/sites/aircord/media/docomo-future-station.mp4",
+    "href": "https://aircord.co.jp/en/projects/docomo-future-station/"
+  },
+  {
+    "slug": "nissan-imx-demonstrator",
+    "title": "NISSAN IMX DEMONSTRATOR",
+    "titleLines": [
+      "NISSAN IMX",
+      "DEMONSTRATOR"
+    ],
+    "client": "NISSAN MOTOR CO.,LTD.",
+    "categories": [
+      "PROJECTION",
+      "INTERACTIVE VISUAL SYSTEM",
+      "LIGHTING SYSTEM"
+    ],
+    "poster": "/sites/aircord/media/nissan-imx-demonstrator.jpg",
+    "video": "/sites/aircord/media/nissan-imx-demonstrator.mp4",
+    "href": "https://aircord.co.jp/en/projects/nissan-imx-demonstrator/"
+  },
+  {
+    "slug": "tokyo-dome-city",
+    "title": "TOKYO DOME CITY",
+    "titleLines": [
+      "TOKYO DOME CITY"
+    ],
+    "client": "TOKYO DOME CORPORATION",
+    "categories": [
+      "DIGITAL SIGNAGE",
+      "VI/UX",
+      "VISUAL SYSTEM",
+      "BRANDING"
+    ],
+    "poster": "/sites/aircord/media/tokyo-dome-city.jpg",
+    "video": "/sites/aircord/media/tokyo-dome-city.mp4",
+    "href": "https://aircord.co.jp/en/projects/tokyo-dome-city/"
+  },
+  {
+    "slug": "jal-sky-museum",
+    "title": "JAL SKY MUSEUM",
+    "titleLines": [
+      "JAL SKY MUSEUM"
+    ],
+    "client": "JAPAN AIRLINES",
+    "categories": [
+      "MUSEUM",
+      "PROJECTION",
+      "VI/UX",
+      "VISUAL SYSTEM",
+      "BRANDING"
+    ],
+    "poster": "/sites/aircord/media/jal-sky-museum.jpg",
+    "video": "/sites/aircord/media/jal-sky-museum.mp4",
+    "href": "https://aircord.co.jp/en/projects/jal-sky-museum/"
+  },
+  {
+    "slug": "tokyo-city-symphony",
+    "title": "TOKYO CITY SYMPHONY",
+    "titleLines": [
+      "TOKYO CITY",
+      "SYMPHONY"
+    ],
+    "client": "MORI BUILDING",
+    "categories": [
+      "PERMANENT EXHIBITION",
+      "PROJECTION",
+      "VISUAL SYSTEM"
+    ],
+    "poster": "/sites/aircord/media/tokyo-city-symphony.jpg",
+    "video": "/sites/aircord/media/tokyo-city-symphony.mp4",
+    "href": "https://aircord.co.jp/en/projects/tokyo-city-symphony/"
+  },
+  {
+    "slug": "finding-perceptions",
+    "title": "Finding Perceptions",
+    "titleLines": [
+      "Finding",
+      "Perceptions"
+    ],
+    "client": "21_21 DESIGN SIGHT",
+    "categories": [
+      "ART",
+      "EXHIBITION",
+      "PROJECTION",
+      "VI",
+      "VISUAL SYSTEM"
+    ],
+    "poster": "/sites/aircord/media/finding-perceptions.jpg",
+    "video": "/sites/aircord/media/finding-perceptions.mp4",
+    "href": "https://aircord.co.jp/en/projects/finding-perceptions/"
+  }
+]

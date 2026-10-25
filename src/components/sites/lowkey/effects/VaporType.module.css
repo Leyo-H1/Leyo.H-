@@ -1,0 +1,27 @@
+.root {
+  display: inline-block;
+  color: inherit;
+  font: inherit;
+  white-space: nowrap;
+}
+
+.character {
+  display: inline-block;
+  opacity: 0;
+  transform: translate3d(0, .26em, 0);
+}
+
+.root[data-active="true"] .character {
+  animation: condense 1.25s cubic-bezier(.16, 1, .3, 1) both;
+  animation-delay: calc(var(--vapor-delay, 0ms) + var(--vapor-index) * 65ms);
+}
+
+@keyframes condense {
+  0% { opacity: 0; filter: blur(7px); transform: translate3d(0, .26em, 0) scale(1.045); }
+  60% { opacity: .78; filter: blur(1px); }
+  100% { opacity: 1; filter: blur(0); transform: translate3d(0, 0, 0) scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .root[data-active="true"] .character { animation: none; opacity: 1; filter: none; transform: none; }
+}

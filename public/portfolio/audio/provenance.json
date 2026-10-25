@@ -1,0 +1,39 @@
+{
+  "source": "13437415292589194.mp4",
+  "sourceSha256": "17dce3cf3d3601bfea2793af7a09c16cddad5a87d9d5e9df096b7813a215aee4",
+  "processing": "mono PCM, DC removal, gain, fades; scroll overlap loop; no synthesized tones",
+  "clips": {
+    "click": {
+      "sourceSeconds": [
+        0.898,
+        1.025
+      ],
+      "duration": 0.127,
+      "sha256": "870d40ee9c43764e7b9a886fedcd743faa7e24d519aabadfcc2564377f9b8fbf"
+    },
+    "hover": {
+      "sourceSeconds": [
+        2.035,
+        2.145
+      ],
+      "duration": 0.11,
+      "sha256": "e2ce2eb94db3c2cb93d73e69ddaf39a2bf9197d957712108790b9859fe42f037"
+    },
+    "transition": {
+      "sourceSeconds": [
+        0.88,
+        1.3
+      ],
+      "duration": 0.42,
+      "sha256": "030d53e0ef876b07296849f0772535a2f9f8f3fb1b3849e8740e37e384adfe9b"
+    },
+    "scroll": {
+      "sourceSeconds": [
+        4.3,
+        5.8
+      ],
+      "duration": 1.38,
+      "sha256": "ebaf91bd4f99f890004b67799c66443801ee2217a2ad79697a229fa53dd6a984"
+    }
+  }
+}
