@@ -190,6 +190,25 @@
     "coverTime": 6.0
   },
   {
+    "slug": "diamond-iced-tea",
+    "title": "钻石冰茶 · 双C鲜萃系列",
+    "titleLines": [
+      "钻石冰茶 · 双C鲜萃系列"
+    ],
+    "category": "茶饮烘焙",
+    "order": 11,
+    "description": "以金粉钻产品名和主kv闪耀buling的视觉风格呈现",
+    "role": "策划、拍摄、剪辑",
+    "year": 2026,
+    "poster": "/portfolio/media/diamond-iced-tea.jpg",
+    "video": "",
+    "fullVideo": "/portfolio/media/diamond-iced-tea.mp4",
+    "width": 1080,
+    "height": 1920,
+    "duration": 25.84,
+    "coverTime": 12
+  },
+  {
     "slug": "kunqu",
     "title": "昆曲项目倒计时3天",
     "titleLines": [

@@ -57,6 +57,8 @@ export interface SceneOptions {
 }
 
 export interface SceneCallbacks {
+  onFeedback?: (kind: 'click' | 'hover') => void;
+  onMotion?: (velocity: number) => void;
   onStageChange?: (stage: SceneStage, index: number) => void;
   onEnterSeries?: (id: string) => void;
   onSceneReady?: () => void;

@@ -95,6 +95,8 @@ html,body{background:#000;color:#f3f3ef}
 
 
 @media(max-width:700px) and (orientation:portrait) {
+  .cinema[data-theme="light"] .collection-screen>.collection-heading { top:calc(50% - min(20vw, 14dvh) - 88px); }
+  .cinema[data-theme="light"] .collection-screen[data-format="portrait"]>.collection-heading { top:calc(50% - min(20vw, 14dvh) - 142px); }
   .cinema[data-theme="light"] .collection-screen .collection-heading h1 { font-size:20px; }
   .cinema[data-theme="light"] .quiet-menu-row .flowing-menu__label-text { font-size:16px; }
 }

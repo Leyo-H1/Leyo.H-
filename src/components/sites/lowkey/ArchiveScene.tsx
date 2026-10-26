@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/set-state-in-effect -- Source entrance phases are synchronized to the imperative animation controller. */
 'use client';
 
-import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties, type PointerEvent as ReactPointerEvent } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties, type ReactNode, type PointerEvent as ReactPointerEvent } from 'react';
 
 import {
   resolveCollectionCover,
@@ -14,6 +14,7 @@ import styles from './ArchiveScene.module.css';
 import { gsap } from 'gsap';
 import { VaporType } from './effects/VaporType';
 import { createVerticalSwipe } from '@/lib/portfolio/vertical-swipe';
+import type { FeedbackKind } from '@/lib/portfolio/interaction-sound';
 
 interface Props {
   series: Collection[];
@@ -23,6 +24,11 @@ interface Props {
   onEntranceComplete?: () => void;
   narrativeSelection?: boolean;
   theme?: 'dark' | 'light';
+  catalogue?: ReactNode;
+  startInCategories?: boolean;
+  onMotion?: (velocity: number) => void;
+  onMotionEnd?: () => void;
+  onFeedback?: (kind: FeedbackKind) => void;
 }
 
 type OrbitPhase = 'scatter' | 'line' | 'curl' | 'tunnel' | 'forming' | 'restoring' | 'orbit' | 'gathering' | 'materializing' | 'handoff' | 'settling' | 'complete' | 'returning' | 'rematerializing' | 'scrolling';
@@ -68,7 +74,6 @@ const ORBIT_WORK_SELECTION: Record<string, readonly string[]> = {
 const toRail = (collections: Collection[]): RailCollection[] =>
   collections
     .filter((collection) => collection.status === 'published')
-    .slice(0, 7)
     .map((collection, index) => {
       const cover = resolveCollectionCover(collection);
       return {
@@ -120,12 +125,18 @@ export function ArchiveScene({
   onEntranceComplete,
   narrativeSelection = false,
   theme = 'dark',
+  catalogue,
+  startInCategories = false,
+  onMotion,
+  onMotionEnd,
+  onFeedback,
 }: Props) {
   const [videoState, setVideoState] = useState({playing:false,muted:true});
   const scrollingRef = useRef(false);
   const phaseRef = useRef<OrbitPhase>('scatter');
   const stageRef = useRef<SceneStage>('archive');
-  const scrubProgressRef = useRef(0);
+  const scrubProgressRef = useRef(startInCategories ? 2 : 0);
+  const catalogueRef = useRef<HTMLDivElement>(null);
   const [videoProgress, setVideoProgress] = useState({currentTime: 0, duration: 0});
   const scrollCleanup = useRef<(() => void) | null>(null);
   const frameRef = useRef<HTMLDivElement>(null);
@@ -150,7 +161,7 @@ export function ArchiveScene({
   const [entrancePhase, setEntrancePhase] = useState<EntrancePhase>(
     entranceMode === 'standard' ? 'complete' : 'loading',
   );
-  const [orbitPhase, setOrbitPhase] = useState<OrbitPhase>(isOrbitEntrance ? 'scatter' : 'complete');
+  const [orbitPhase, setOrbitPhase] = useState<OrbitPhase>(startInCategories ? 'complete' : isOrbitEntrance ? 'scatter' : 'complete');
   const [selectedOrbitCardId, setSelectedOrbitCardId] = useState<string | null>(null);
   const [metaIndex, setMetaIndex] = useState(3);
   const [ready, setReady] = useState(false);
@@ -158,7 +169,7 @@ export function ArchiveScene({
   const [, setShowEntranceHint] = useState(entranceMode === 'unfold');
 
   const published = useMemo(
-    () => series.filter((collection) => collection.status === 'published').slice(0, 7),
+    () => series.filter((collection) => collection.status === 'published'),
     [series],
   );
   const rail = useMemo(() => toRail(published), [published]);
@@ -200,13 +211,6 @@ export function ArchiveScene({
     return cards;
   }, [published, narrativeSelection]);
   useEffect(() => { phaseRef.current = orbitPhase; stageRef.current = stage; }, [orbitPhase, stage]);
-  const previousSoundPhase = useRef(orbitPhase);
-  useEffect(() => {
-    if (theme === 'light' && previousSoundPhase.current !== orbitPhase && (orbitPhase === 'complete' || orbitPhase === 'restoring')) {
-      window.dispatchEvent(new CustomEvent('portfolio-view-transition'));
-    }
-    previousSoundPhase.current = orbitPhase;
-  }, [orbitPhase, theme]);
 
   const clearOrbitTimers = useCallback(() => {
     orbitTimersRef.current.forEach((timer) => window.clearTimeout(timer));
@@ -227,9 +231,9 @@ export function ArchiveScene({
 
   useEffect(() => {
     clearOrbitTimers();
-    setOrbitPhase(isOrbitEntrance ? 'scatter' : 'complete');
+    setOrbitPhase(startInCategories ? 'complete' : isOrbitEntrance ? 'scatter' : 'complete');
     setSelectedOrbitCardId(null);
-  }, [clearOrbitTimers, isOrbitEntrance]);
+  }, [clearOrbitTimers, isOrbitEntrance, startInCategories]);
 
   useEffect(() => {
     if (!isOrbitEntrance || !ready || orbitPhase !== 'scatter') return;
@@ -267,7 +271,7 @@ export function ArchiveScene({
     const placeCards = (time: number) => {
       const mobile = rect.width < 640;
       const ringRadius = mobile
-        ? Math.min(rect.width * 0.39, rect.height * 0.18)
+        ? Math.min(rect.width * 0.40, rect.height * 0.20)
         : Math.min(rect.width * 0.175, rect.height * 0.31, 240);
       const lineGap = Math.min(mobile ? 22 : 38, (rect.width * 0.82) / Math.max(cards.length, 1));
       const lineHalfWidth = ((cards.length - 1) * lineGap) / 2;
@@ -499,7 +503,7 @@ export function ArchiveScene({
       const centreX = rootRect.left + rootRect.width / 2;
       const centreY = rootRect.top + rootRect.height * (mobile ? 0.42 : 0.44);
       const ringRadius = mobile
-        ? Math.min(rootRect.width * 0.39, rootRect.height * 0.18)
+        ? Math.min(rootRect.width * 0.40, rootRect.height * 0.20)
         : Math.min(rootRect.width * 0.175, rootRect.height * 0.31, 240);
       const pointerX = pointer.clientX - centreX;
       const pointerY = pointer.clientY - centreY;
@@ -563,9 +567,10 @@ export function ArchiveScene({
       }
       if (closestIndex !== hoveredOrbitIndexRef.current) {
         hoveredOrbitIndexRef.current = closestIndex;
+        if (closestIndex >= 0 && pointer.pointerType !== 'touch') onFeedback?.('hover');
       }
     });
-  }, [orbitPhase]);
+  }, [orbitPhase, onFeedback]);
 
   const startOrbitEntrance = useCallback((card: OrbitCardData) => {
     if (!isOrbitEntrance || orbitPhase !== 'orbit') return;
@@ -604,6 +609,8 @@ export function ArchiveScene({
       },
       onVideoState: (playing, muted) => setVideoState({ playing, muted }),
       onVideoProgress: setVideoProgress,
+      onMotion,
+      onFeedback,
       onSceneReady: () => {
         // The first rendered frame is the reliable readiness signal for every
         // entrance mode. Standard mode previously waited for a later
@@ -657,7 +664,7 @@ export function ArchiveScene({
       if (controllerRef.current === controller) controllerRef.current = null;
       controller.dispose();
     };
-  }, [entranceMode, isOrbitEntrance, onEntranceComplete, queueOrbitPhase, rail, reducedMotion, theme]);
+  }, [entranceMode, isOrbitEntrance, onEntranceComplete, onMotion, onFeedback, queueOrbitPhase, rail, reducedMotion, theme]);
 
   useEffect(() => {
     const active = !isOrbitEntrance || !['scatter', 'line', 'curl', 'tunnel', 'forming', 'restoring', 'orbit'].includes(orbitPhase);
@@ -671,13 +678,14 @@ export function ArchiveScene({
   // Like the reference NarrativeBridge, progress belongs to the input, with a
   // short time-based response. A stopped wheel leaves the camera exactly there.
   const scrubEnabled = isOrbitEntrance && ['orbit', 'scrolling', 'complete'].includes(orbitPhase);
+  const hasCatalogue = !!catalogue;
   useEffect(() => {
     if (!scrubEnabled) return;
     const root = orbitRef.current;
     const frame = frameRef.current;
     const controller = controllerRef.current;
     if (!root || !frame || !controller) return;
-    let target = phaseRef.current === 'complete' ? 1 : scrubProgressRef.current;
+    let target = scrubProgressRef.current || (phaseRef.current === 'complete' ? 1 : 0);
     let current = target;
     let raf = 0;
     let last = 0;
@@ -689,10 +697,13 @@ export function ArchiveScene({
       cancelAnimationFrame(orbitRafRef.current);
       // Animate the original cards. No clone layer means no duplicate images
       // can remain at their starting positions during the radial exit.
-      const positions = cards.map(card => ({
-        x: parseFloat(card.style.getPropertyValue('--orbit-x')) || 0,
-        y: parseFloat(card.style.getPropertyValue('--orbit-y')) || 0,
-      }));
+      const rect = root.getBoundingClientRect();
+      const radius = rect.width < 640 ? Math.min(rect.width * .40, rect.height * .20) : Math.min(rect.width * .175, rect.height * .31, 240);
+      const positions = cards.map((card, index) => {
+        const angle = orbitAngleRef.current + Math.PI / 2 + ((index + .5) / cards.length) * Math.PI * 2;
+        return {x: parseFloat(card.style.getPropertyValue('--orbit-x')) || Math.cos(angle) * radius,
+          y: parseFloat(card.style.getPropertyValue('--orbit-y')) || Math.sin(angle) * radius};
+      });
       controller.setActive(true);
       // The destination is the entire settled rail, revealed only by opacity.
       // Scrolling no longer unfolds or advances selected pictures in depth.
@@ -718,8 +729,27 @@ export function ArchiveScene({
       current += (target - current) * (reducedMotion ? 1 : 1 - Math.exp(-dt / 65));
       if (Math.abs(target - current) < .0008) current = target;
       scrubProgressRef.current = current;
-      timeline?.progress(current);
-      if (theme === 'light') controller.setEntranceProgress(current === 1 ? 1 : Math.max(0, Math.min(1, (current - .08) / .92)));
+      timeline?.progress(Math.min(1, current));
+      if (theme === 'light') controller.setEntranceProgress(current >= 1 ? 1 : Math.max(0, Math.min(1, (current - .08) / .92)));
+      const catalogueProgress = Math.max(0, current - 1);
+      controller.setCatalogueProgress(catalogueProgress);
+      frame.style.opacity = String(current > 1 ? 1 - Math.pow(catalogueProgress, 3) : current < 1 ? Number(gsap.getProperty(frame, 'opacity')) : 1);
+      const overlay = catalogueRef.current;
+      if (overlay) {
+        const reveal = Math.max(0, Math.min(1, (catalogueProgress - .12) / .88));
+        overlay.style.opacity = String(reveal * reveal * (3 - 2 * reveal));
+        overlay.style.transform = `scale(${.94 + .06 * reveal})`;
+        overlay.style.visibility = catalogueProgress > 0 ? 'visible' : 'hidden';
+        // Once the menu is legible it is actionable, even if a swipe stopped
+        // before the exact endpoint. Native buttons must not wait for a reload.
+        overlay.inert = reveal < .55;
+        overlay.setAttribute('aria-hidden', String(reveal < .55));
+      }
+      if (frame.parentElement) {
+        frame.parentElement.dataset.catalogueProgress = catalogueProgress.toFixed(4);
+        frame.parentElement.dataset.catalogueActive = String(catalogueProgress > 0);
+      }
+      if (current >= 1 && target === 2 && current === 2) controller.setActive(false);
 
       frame.parentElement?.setAttribute('data-scroll-progress', current.toFixed(4));
       if (current === 0) {
@@ -732,16 +762,17 @@ export function ArchiveScene({
         setSelectedOrbitCardId(null);
         setOrbitPhase('orbit');
         controller.setActive(false);
-      } else if (current === 1) {
+      } else if (current >= 1 && current === target) {
         scrollingRef.current = false;
         setOrbitPhase('complete');
       }
       if (current !== target) raf = requestAnimationFrame(tick);
-      else { raf = 0; last = 0; }
+      else { raf = 0; last = 0; onMotionEnd?.(); }
     };
     const change = (next: number) => {
       prepare();
-      target = Math.max(0, Math.min(1, next));
+      target = Math.max(0, Math.min(hasCatalogue ? 2 : 1, next));
+      if (Math.abs(target - Math.round(target)) < 1e-7) target = Math.round(target);
       if (target === current && !raf) return;
       scrollingRef.current = true;
       setOrbitPhase('scrolling');
@@ -767,13 +798,17 @@ export function ArchiveScene({
     const swipe = createVerticalSwipe();
     const shell = frame.parentElement;
     let suppressClickUntil = 0;
+    let tapStart: { id: number; x: number; y: number } | null = null;
+    let gestureStart = target;
     const onPointerDown = (event: PointerEvent) => {
       if (!event.isPrimary) { swipe.cancel(); return; }
       if (event.button !== 0 || stageRef.current !== 'archive' || !(event.target instanceof Element) || !shell?.contains(event.target)) return;
       // Keep player controls, navigation and sliders fully native. Orbit cards
       // still support tap-to-open; only an actual vertical drag takes ownership.
-      if (event.target.closest('button,a,input,select,textarea,video,[role="slider"]') && !event.target.closest('[data-orbit-card],[data-scroll-cue]')) return;
+      if (event.target.closest('button,a,input,select,textarea,video,[role="slider"]') && !event.target.closest('[data-orbit-card],[data-scroll-cue],[data-catalogue], [data-more-cue]')) return;
       swipe.begin(event.pointerId, event.clientX, event.clientY);
+      gestureStart = target;
+      tapStart = { id: event.pointerId, x: event.clientX, y: event.clientY };
     };
     const onPointerMove = (event: PointerEvent) => {
       if (stageRef.current !== 'archive') { swipe.cancel(); return; }
@@ -782,26 +817,49 @@ export function ArchiveScene({
       event.preventDefault(); event.stopImmediatePropagation();
       suppressClickUntil = performance.now() + 450;
       if (shell && !shell.hasPointerCapture(event.pointerId)) shell.setPointerCapture(event.pointerId);
-      if (target <= 0 && delta < 0 || target >= 1 && delta > 0) return;
+      if (target <= 0 && delta < 0 || target >= (hasCatalogue ? 2 : 1) && delta > 0) return;
       // A viewport-relative travel keeps short mobile swipes responsive while
       // preserving partial progress and exact reversal on the same gesture.
       const distance = Math.max(320, Math.min(640, innerHeight * .72));
-      change(target + delta / distance);
+      const next = target + delta / distance;
+      // Each mobile gesture visits the featured rail before crossing into
+      // the next section. Excess travel is consumed until the finger lifts.
+      change(hasCatalogue
+        ? Math.max(gestureStart > 1 ? 1 : 0, Math.min(gestureStart < 1 ? 1 : 2, next))
+        : next);
     };
     const onPointerEnd = (event: PointerEvent) => {
-      if (!swipe.end(event.pointerId)) return;
+      const tap = tapStart;
+      tapStart = null;
+      if (!swipe.end(event.pointerId)) {
+        // Keep partial progress while resting. A deliberate tap on a visible
+        // case finishes the remaining entrance and opens that same case.
+        if (event.type === 'pointerup' && tap?.id === event.pointerId
+          && Math.hypot(event.clientX - tap.x, event.clientY - tap.y) < 8
+          && !raf && current >= .5 && current < 1
+          && event.target instanceof Element && !event.target.closest('button,a,input,video')
+          && controller.queueEntranceTap(event)) change(1);
+        return;
+      }
       if (shell?.hasPointerCapture(event.pointerId)) shell.releasePointerCapture(event.pointerId);
       event.preventDefault(); event.stopImmediatePropagation();
       suppressClickUntil = performance.now() + 450;
+      // Finish a committed arrival at the rail so horizontal dragging, case
+      // selection and More all share the same fully settled state.
+      if (hasCatalogue && event.type === 'pointerup'
+        && (gestureStart < 1 && target >= .5 && target < 1
+          || gestureStart > 1 && target > 1 && target <= 1.5)) change(1);
     };
     const onSwipeClick = (event: MouseEvent) => {
       if (event.detail && performance.now() < suppressClickUntil && event.target instanceof Element && shell?.contains(event.target)) {
-        if (event.target.closest('button,a,input,select,textarea,[role="slider"]') && !event.target.closest('[data-orbit-card],[data-scroll-cue]')) return;
         event.preventDefault(); event.stopImmediatePropagation();
       }
     };
     const enter = () => change(1);
     const back = () => change(0);
+    const enterCatalogue = () => change(2);
+    const backCatalogue = () => change(1);
+    if (target > 1) { prepare(); raf = requestAnimationFrame(tick); }
     window.addEventListener('pointerdown', onPointerDown, true);
     window.addEventListener('pointermove', onPointerMove, {passive: false, capture: true});
     window.addEventListener('pointerup', onPointerEnd, true);
@@ -811,8 +869,11 @@ export function ArchiveScene({
     window.addEventListener('keydown', onKey, true);
     window.addEventListener('portfolio-scroll-enter', enter);
     window.addEventListener('portfolio-scroll-return', back);
+    window.addEventListener('portfolio-catalogue-enter', enterCatalogue);
+    window.addEventListener('portfolio-catalogue-return', backCatalogue);
     const cleanup = () => {
       cancelAnimationFrame(raf); timeline?.kill();
+      onMotionEnd?.();
       gsap.set(cards, {clearProps: 'opacity'});
       gsap.set(root, {clearProps: 'opacity,transform'});
       gsap.set(frame, {clearProps: 'opacity'});
@@ -826,10 +887,12 @@ export function ArchiveScene({
       window.removeEventListener('keydown', onKey, true);
       window.removeEventListener('portfolio-scroll-enter', enter);
       window.removeEventListener('portfolio-scroll-return', back);
+      window.removeEventListener('portfolio-catalogue-enter', enterCatalogue);
+      window.removeEventListener('portfolio-catalogue-return', backCatalogue);
     };
     scrollCleanup.current = cleanup;
     return cleanup;
-  }, [scrubEnabled, reducedMotion, resetOrbitHover, theme]);
+  }, [scrubEnabled, reducedMotion, resetOrbitHover, theme, hasCatalogue, onMotion, onMotionEnd]);
 
   const currentIndex = Math.min(metaIndex, Math.max(0, published.length - 1));
   const currentCollection = published[currentIndex];
@@ -864,6 +927,9 @@ export function ArchiveScene({
         className={styles.sceneFrame}
         tabIndex={isOrbitEntrance && orbitPhase !== 'complete' ? -1 : 0}
         role="application"
+        data-interactive
+        data-sound-handled
+        data-sound-hover-handled
         aria-label="精选作品陈列，拖动或滚动浏览，点击画框播放"
         onPointerDown={dismissActiveHint}
         onWheel={dismissActiveHint}
@@ -908,6 +974,7 @@ export function ArchiveScene({
                   key={card.id}
                   className={styles.orbitCard}
                   data-orbit-card
+                  data-sound-hover-handled
                   data-work-id={card.id}
                   data-orbit-index={index}
                   data-selected={selected ? 'true' : 'false'}
@@ -958,7 +1025,9 @@ export function ArchiveScene({
       </button>
 
       {orbitPhase === 'orbit' && <button className={styles.scrollCue} data-scroll-cue onClick={() => window.dispatchEvent(new CustomEvent('portfolio-scroll-enter'))}>向下滑动 <span>↓</span></button>}
-      {orbitPhase === 'complete' && <button className={styles.moreButton} onClick={onMore}>更多 <span>↗</span></button>}
+      <p className={styles.exploreHint} aria-hidden="true">点击探索</p>
+      {orbitPhase === 'complete' && <button className={styles.moreButton} data-more-cue onClick={onMore}>更多 <span>↗</span></button>}
+      {catalogue && <div ref={catalogueRef} className={styles.catalogueOverlay} data-catalogue inert aria-hidden="true">{catalogue}</div>}
       <nav className={styles.accessibleWorks} aria-label="精选画框作品" inert={orbitPhase !== 'complete'}>{published.map((item,index)=><button key={item.id} onClick={()=>controllerRef.current?.openCase(index)}>打开画框：{item.titleZh}</button>)}</nav>
       <section ref={workInfoRef} className={styles.workInfo} data-open={open ? 'true' : 'false'} aria-hidden={!open} inert={!open}>
         <h1>{currentCollection?.titleZh}</h1>

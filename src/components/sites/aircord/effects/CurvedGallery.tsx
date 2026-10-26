@@ -55,10 +55,26 @@ const fragmentShader = `
     vec4 photo = texture2D(uMap, uv);
     vec3 color = mix(vec3(.955, .96, .955), photo.rgb, uReady);
     float rim = 1.0 - smoothstep(.002, .012, abs(d));
-    color = mix(color, vec3(.96, .975, .97), rim * (.34 + .22 * uHover));
+    float innerRim = (1.0 - smoothstep(.001, .004, abs(d + .014))) * .2;
+    float bevelLight = .5 + .5 * dot(normalize(p + vec2(.0001)), normalize(vec2(-.6, .8)));
+    color = mix(color, vec3(.98, .99, .985), rim * (.36 + .24 * bevelLight + .16 * uHover));
+    color *= 1.0 - innerRim * (1.0 - bevelLight);
     color += uHover * lens * .022;
     gl_FragColor = vec4(color, mask * uOpacity);
     #include <tonemapping_fragment>
+    #include <colorspace_fragment>
+  }
+`;
+const shadowFragment = `
+  uniform float uOpacity;
+  uniform float uAspect;
+  varying vec2 vUv;
+  void main() {
+    vec2 p = (vUv - .5) * vec2(uAspect, 1.0);
+    vec2 q = abs(p) - vec2(uAspect, 1.0) * .5 + .065;
+    float d = length(max(q, 0.0)) + min(max(q.x, q.y), 0.0) - .035;
+    float alpha = (1.0 - smoothstep(-.025, .035, d)) * .13 * uOpacity;
+    gl_FragColor = vec4(.2, .26, .22, alpha);
     #include <colorspace_fragment>
   }
 `;
@@ -149,6 +165,14 @@ export function CurvedGallery({ images, labels, portrait, paused, reducedMotion,
       scene.add(mesh);
       return mesh;
     });
+    const shadows = meshes.map(() => {
+      const material = new THREE.ShaderMaterial({vertexShader, fragmentShader: shadowFragment,
+        transparent:true, depthWrite:false, uniforms:{uOpacity:{value:0},uAspect:{value:cardWidth/cardHeight},
+          uBend:{value:-.000045},uHover:{value:0},uPointer:{value:new THREE.Vector2(.5,.5)}}});
+      const mesh = new THREE.Mesh(geometry, material);
+      scene.add(mesh);
+      return mesh;
+    });
     const corner = new THREE.Vector3();
     const localCorners = [[-1, 1], [1, 1], [1, -1], [-1, -1]];
     const resize = () => {
@@ -229,6 +253,14 @@ export function CurvedGallery({ images, labels, portrait, paused, reducedMotion,
         const edge = 1 - THREE.MathUtils.smoothstep(Math.abs(offset), 3.05, 3.65);
         material.uniforms.uOpacity.value = edge;
         mesh.visible = edge > .001;
+        const shadow = shadows[slot];
+        shadow.visible = mesh.visible;
+        shadow.position.copy(mesh.position);
+        shadow.position.y -= 5 * scale;
+        shadow.position.z -= 3 * scale;
+        shadow.rotation.copy(mesh.rotation);
+        shadow.scale.setScalar(scale * 1.035);
+        shadow.material.uniforms.uOpacity.value = edge;
         mesh.updateMatrixWorld();
         const corners = localCorners.map(([x, y]) => {
           corner.set(x * cardWidth / 2, y * cardHeight / 2, material.uniforms.uBend.value * cardWidth * cardWidth / 4);
@@ -372,7 +404,7 @@ export function CurvedGallery({ images, labels, portrait, paused, reducedMotion,
       element.removeEventListener("pointermove", move); element.removeEventListener("pointerup", finish);
       element.removeEventListener("pointercancel", finish); element.removeEventListener("lostpointercapture", lost);
       renderer.domElement.removeEventListener("webglcontextlost", contextLost);
-      meshes.forEach(mesh => mesh.material.dispose()); textures.forEach(texture => texture?.dispose());
+      meshes.forEach(mesh => mesh.material.dispose()); shadows.forEach(mesh => mesh.material.dispose()); textures.forEach(texture => texture?.dispose());
       geometry.dispose(); blank.dispose(); renderer.dispose(); renderer.domElement.remove();
     };
   }, [images, labels, portrait]);

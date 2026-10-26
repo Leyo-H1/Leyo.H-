@@ -1,7 +1,7 @@
 import { projects } from "../aircord/portfolio";
 import type { Collection, ShellKey } from "./data";
 
-// Seven featured films plus six additional portrait covers in the orbit.
+// Eight featured films plus six additional portrait covers in the orbit.
 const selection: {slug:string;edge:string;spine:string;shell:ShellKey}[] = [
   {slug:"film-04",edge:"#a88b68",spine:"#4d3d30",shell:"smoked"},
   {slug:"film-02",edge:"#c7b0a1",spine:"#aa8f82",shell:"paleIce"},
@@ -10,6 +10,7 @@ const selection: {slug:string;edge:string;spine:string;shell:ShellKey}[] = [
   {slug:"film-10",edge:"#d6c9a6",spine:"#bbaa83",shell:"milky"},
   {slug:"oolong",edge:"#c39a8e",spine:"#a8776b",shell:"clear"},
   {slug:"kunqu",edge:"#8eaa9b",spine:"#5f7d70",shell:"paleIce"},
+  {slug:"diamond-iced-tea",edge:"#d8a5b2",spine:"#a47382",shell:"clear"},
 ];
 export const selectedCollections: Collection[] = selection.map((setting,index)=>{
   const p=projects.find(item=>item.slug===setting.slug)!;

@@ -1111,6 +1111,16 @@ export class SceneController {
     this.handleClick(index);
   }
 
+  private pendingEntranceCase = -1;
+  private rowSoundActive = false;
+
+  public queueEntranceTap(event: PointerEvent) {
+    const index = this.pick(event);
+    if (index < 0) return false;
+    this.pendingEntranceCase = index;
+    return true;
+  }
+
   public closeSelected() {
     if (this.play) this.play.dir = -1;
     this.stopVideo();
@@ -1356,6 +1366,19 @@ export class SceneController {
     }
   }
 
+  private catalogueProgress = 0;
+
+  public setCatalogueProgress(progress: number) {
+    if (progress > 0 && this.catalogueProgress === 0) {
+      this.dragging = false;
+      this.dragVelocity = 0;
+      this.rowTarget = this.rowP;
+      if (this.activePointerId !== null && this.frame.hasPointerCapture?.(this.activePointerId)) this.frame.releasePointerCapture(this.activePointerId);
+      this.activePointerId = null;
+    }
+    this.catalogueProgress = clamp(progress, 0, 1);
+  }
+
   /** Caption bounds are measured only when its content or viewport changes. */
   public setCaptionTop(top: number) {
     if (this.disposed || !Number.isFinite(top)) return;
@@ -1539,6 +1562,11 @@ export class SceneController {
     this.callbacks.onStageChange?.('archive', this.lastCenterMetadata);
     this.callbacks.onEntranceComplete?.();
     this.frame.style.cursor = 'grab';
+    if (this.pendingEntranceCase >= 0) {
+      const index = this.pendingEntranceCase;
+      this.pendingEntranceCase = -1;
+      this.handleClick(index);
+    }
   }
 
   public resetEntrance() {
@@ -2026,7 +2054,9 @@ export class SceneController {
       this.lastPointerX = e.clientX;
       this.lastPointerTime = now;
     } else if (this.state === 'idle' && !this.play) {
-      this.hovered = this.pick(e);
+      const hovered = this.pick(e);
+      if (hovered >= 0 && hovered !== this.hovered && e.pointerType !== 'touch') this.callbacks.onFeedback?.('hover');
+      this.hovered = hovered;
       this.frame.style.cursor = this.hovered >= 0 ? 'pointer' : 'grab';
     }
   }
@@ -2040,6 +2070,7 @@ export class SceneController {
   }
 
   private onPointerDown(e: PointerEvent) {
+    if (this.catalogueProgress > 0) return;
     if (!this.active || this.entranceScrubbing && this.state !== 'idle') return;
     if (e.pointerType === 'mouse' && e.button !== 0) return;
     const entranceInteractive = this.entranceMode === 'unfold' && this.state === 'unfold';
@@ -2075,6 +2106,7 @@ export class SceneController {
     }
     if (this.dragging && !wasDrag && this.state === 'idle') {
       const picked = this.pickTarget(e);
+      if (picked.index >= 0) this.callbacks.onFeedback?.('click');
       if (picked.region === 'artwork' && picked.index === this.selected) {
         this.closeSelected();
       } else {
@@ -2298,6 +2330,11 @@ export class SceneController {
     c.edgeFade.value = 1 - smooth(edgeDistance * 0.76, edgeDistance, Math.abs(c.cur.x));
     if (this.state === 'idle' || this.play) c.root.visible = c.edgeFade.value > 0.002;
     c.root.position.copy(c.cur);
+    if (this.catalogueProgress > 0) {
+      const direction = c.cur.x < -0.01 ? -1 : c.cur.x > 0.01 ? 1 : c.root.userData.idx % 2 ? -1 : 1;
+      const spread = this.catalogueProgress * this.catalogueProgress * (3 - 2 * this.catalogueProgress);
+      c.root.position.x += direction * (this.halfW * 1.5 + T.CASE_W) * spread;
+    }
     c.root.rotation.y = c.curRotY;
     c.root.scale.setScalar(c.curScale);
     const broadFace = Math.abs(Math.cos(c.curRotY));
@@ -2375,7 +2412,12 @@ export class SceneController {
     const dRow = 1 - Math.exp(-dt * (this.reducedMotion ? 30 : rowRate));
     const dCard = 1 - Math.exp(-dt * (this.reducedMotion ? 30 : 10));
     const dFace = 1 - Math.exp(-dt * (this.reducedMotion ? 30 : 9));
+    const previousRow = this.rowP;
     this.rowP = lerp(this.rowP, this.rowTarget, dRow);
+    const rowVelocity = this.state === 'idle' && !this.play && this.catalogueProgress === 0
+      ? (this.rowP - previousRow) / T.GAP / Math.max(dt, .001) : 0;
+    if (Math.abs(rowVelocity) > .025 || this.rowSoundActive) this.callbacks.onMotion?.(rowVelocity);
+    this.rowSoundActive = Math.abs(rowVelocity) > .025;
     this.parallax = lerp(this.parallax, this.reducedMotion ? 0 : this.parallaxTarget, 1 - Math.exp(-dt * 4));
     this.rail.rotation.y = this.parallax;
 

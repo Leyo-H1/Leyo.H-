@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState, type RefObject } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState, type RefObject } from "react";
 import { createInteractionSound, type FeedbackKind } from "@/lib/portfolio/interaction-sound";
 
 const selector = 'button:not(:disabled),a[href],[role="button"],[role="slider"],[data-interactive]';
@@ -14,7 +14,7 @@ export function useInteractionSound(root: RefObject<HTMLElement | null>, enabled
   const motion = useCallback((velocity: number) => engine.current?.motion(velocity), []);
   const endMotion = useCallback(() => engine.current?.endMotion(), []);
   useEffect(() => { settings.current = { soundOn, quiet }; engine.current?.configure(!soundOn, quiet); }, [soundOn, quiet]);
-  useEffect(() => {
+  useLayoutEffect(() => {
     const element = root.current;
     if (!enabled || !element) return;
     const audio = createInteractionSound((kind, state) => {
@@ -42,37 +42,42 @@ export function useInteractionSound(root: RefObject<HTMLElement | null>, enabled
       if (target === lastTarget) return;
       lastTarget = target;
       if (hoverTimer) clearTimeout(hoverTimer);
-      if (target) hoverTimer = setTimeout(() => audio.play("hover"), 85);
+      if (target && !target.hasAttribute('data-sound-hover-handled')) hoverTimer = setTimeout(() => audio.play("hover"), 85);
     };
     const leave = () => { lastTarget = null; if (hoverTimer) clearTimeout(hoverTimer); };
     const click = (event: MouseEvent) => {
+      if (event.isTrusted) audio.unlock();
       const target = interactive(event.target);
       if (target && !target.hasAttribute("data-sound-handled") && target.getAttribute("role") !== "slider") audio.play("click");
     };
     const key = (event: KeyboardEvent) => {
       if (event.key === "Escape") audio.play("click");
     };
-    const focus = (event: FocusEvent) => { if (interactive(event.target)) audio.play("hover"); };
+    const focus = (event: FocusEvent) => {
+      const target = interactive(event.target);
+      if (target?.matches(':focus-visible')) audio.play("hover");
+    };
     const visibility = () => { if (document.hidden) audio.suspend(); else audio.resume(); };
-    const onFrameTransition = () => audio.play("transition");
-    element.addEventListener("pointerdown", unlock, true);
-    element.addEventListener("pointerup", unlock, true);
-    element.addEventListener("keydown", unlock, true);
+    // Register before the scene's passive effects: its vertical gesture owner
+    // stops pointerup propagation, including WebKit's audio activation event.
+    window.addEventListener("pointerdown", unlock, true);
+    window.addEventListener("pointerup", unlock, true);
+    window.addEventListener("touchend", unlock, { passive: true, capture: true });
+    window.addEventListener("keydown", unlock, true);
     element.addEventListener("pointermove", point, { passive: true });
     element.addEventListener("pointerleave", leave);
     element.addEventListener("click", click, true);
     element.addEventListener("keydown", key);
     element.addEventListener("focusin", focus);
-    window.addEventListener("portfolio-view-transition", onFrameTransition);
     document.addEventListener("visibilitychange", visibility);
     return () => {
       if (hoverTimer) clearTimeout(hoverTimer);
-      element.removeEventListener("pointerdown", unlock, true); element.removeEventListener("pointerup", unlock, true);
-      element.removeEventListener("keydown", unlock, true); element.removeEventListener("keydown", key);
+      window.removeEventListener("pointerdown", unlock, true); window.removeEventListener("pointerup", unlock, true);
+      window.removeEventListener("touchend", unlock, true);
+      window.removeEventListener("keydown", unlock, true); element.removeEventListener("keydown", key);
       element.removeEventListener("pointermove", point); element.removeEventListener("pointerleave", leave);
       element.removeEventListener("click", click, true);
       element.removeEventListener("focusin", focus);
-      window.removeEventListener("portfolio-view-transition", onFrameTransition);
       document.removeEventListener("visibilitychange", visibility);
       audio.destroy(); engine.current = null;
     };

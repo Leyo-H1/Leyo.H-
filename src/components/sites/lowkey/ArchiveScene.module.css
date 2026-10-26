@@ -13,6 +13,12 @@
   isolation: isolate;
 }
 
+.catalogueOverlay { position:absolute;inset:0;z-index:30;opacity:0;visibility:hidden;transform:scale(.94);touch-action:none;will-change:transform,opacity; }
+.catalogueOverlay[inert] { pointer-events:none; }
+.shell[data-catalogue-active='true'] .moreButton,
+.shell[data-catalogue-active='true'] .returnToEntrance,
+.shell[data-catalogue-active='true'] .accessibleWorks { visibility:hidden;pointer-events:none; }
+
 .shell::before {
   position: absolute;
   inset: 0;
@@ -1150,7 +1156,7 @@
   white-space:normal;
   overflow-wrap:anywhere;
 }
-.shell[data-orbit-phase='scrolling'] .sceneFrame { pointer-events:none; }
+.shell[data-orbit-phase='scrolling'] .sceneFrame { pointer-events:auto; }
 .shell[data-orbit-phase='scrolling'] .orbitCard { transition:none; }
 
 
@@ -1163,7 +1169,38 @@
 }
 
 /* The fixed scene owns vertical touch gestures instead of native page panning. */
+.exploreHint {
+  position:absolute;
+  top:calc(50% - clamp(135px, 21dvh, 205px));
+  left:50%;
+  transform:translateX(-50%);
+  z-index:12;
+  margin:0;
+  font:300 12px/1.6 var(--sans);
+  letter-spacing:2px;
+  pointer-events:none;
+  visibility:hidden;
+  animation:exploreBreath 3.2s ease-in-out infinite;
+  animation-play-state:paused;
+}
+.shell[data-stage='archive'][data-orbit-phase='complete']:not([data-catalogue-active='true']) .exploreHint {
+  visibility:visible;
+  animation-play-state:running;
+}
+@keyframes exploreBreath {
+  0%, 100% { opacity:.18; }
+  50% { opacity:.65; }
+}
+@media (prefers-reduced-motion:reduce) {
+  .exploreHint { animation:none;opacity:.5; }
+}
+@media (min-width:701px) {
+  .exploreHint { top:calc(50% - clamp(185px, 26dvh, 265px)); }
+}
 .shell[data-entrance-mode='orbit'] { touch-action:none; }
 @media (max-width:700px) and (orientation:portrait) {
+  .exploreHint { font-size:11px; }
   .shell[data-theme='light'] .moreButton { font-size:16px;gap:20px; }
+  .shell[data-theme='light'] .orbitCard { width:34px; }
+  .shell[data-theme='light'] .orbitSlogan h1 { font-size:13px;letter-spacing:2px;line-height:1.65; }
 }
